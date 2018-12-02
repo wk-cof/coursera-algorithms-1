@@ -12,6 +12,8 @@ import java.util.List;
 public class Board {
     private final int size;
     private int[] state;
+    private int manhattan;
+    private int hamming;
 
     // construct a board from an n-by-n array of blocks
     // (where blocks[i][j] = block in row i, column j)
@@ -21,6 +23,8 @@ public class Board {
         }
         this.size = blocks.length;
         this.state = new int[size * size];
+        this.manhattan = -1;
+        this.hamming = -1;
 
         int i = 0;
         for (int[] row : blocks) {
@@ -41,6 +45,9 @@ public class Board {
 
     // number of blocks out of place
     public int hamming() {
+        if (this.hamming > -1) {
+            return this.hamming;
+        }
         int numsOutOfPlace = 0;
         for (int i = 0; i < size * size; i++) {
             if (state[i] == 0) {
@@ -50,11 +57,15 @@ public class Board {
                 numsOutOfPlace++;
             }
         }
+        this.hamming = numsOutOfPlace;
         return numsOutOfPlace;
     }
 
     // sum of Manhattan distances between blocks and goal
     public int manhattan() {
+        if (this.manhattan > -1) {
+            return this.manhattan;
+        }
         int totalDistance = 0;
         for (int i = 0; i < size * size; i++) {
             if (state[i] == 0) {
@@ -62,6 +73,7 @@ public class Board {
             }
             totalDistance += rowColManhattanDiff(expectedIdx2D(i + 1), expectedIdx2D(state[i]));
         }
+        this.manhattan = totalDistance;
         return totalDistance;
     }
 
