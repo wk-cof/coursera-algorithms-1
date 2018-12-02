@@ -197,6 +197,7 @@ public class Board {
             }
             sb.append(state[i] + "  ");
         }
+        sb.append("\n");
         return sb.toString();
     }
 
