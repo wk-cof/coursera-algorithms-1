@@ -65,6 +65,10 @@ public class Solver {
         swim(size);
     }
 
+    private boolean isEmpty() {
+        return size == 0;
+    }
+
     private Board delMax() {
         Board max = pq[1];
         exch(1, size--);
